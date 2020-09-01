@@ -1,3 +1,5 @@
+import YOUTUBE_API_KEY from '../config/youtube.js';
+
 var searchYouTube = (options, callback = ()=>{}) => {
   $.get({
     url: 'https://www.googleapis.com/youtube/v3/search',
@@ -10,18 +12,13 @@ var searchYouTube = (options, callback = ()=>{}) => {
     }
   });
 };
+console.log(searchYouTube({key: YOUTUBE_API_KEY, query: 'cat', max: 5}, console.log('')));
 
 export default searchYouTube;
 
-// readAll: function(successCB, errorCB = null) {
-//   $.ajax({
-//     url: Parse.server,
-//     type: 'GET',
-//     data: { order: '-createdAt' },
-//     contentType: 'application/json',
-//     success: successCB,
-//     error: errorCB || function(error) {
-//       console.error('chatterbox: Failed to fetch messages', error);
-//     }
-//   });
-// }
+// data: $.extend({
+//   key: 'API_KEY',
+//   q: $('#hyv-search').val(),
+//   part: 'snippet'
+// },
+// $.get( 'https://www.googleapis.com/youtube/v3/search', options, callback)

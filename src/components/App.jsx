@@ -1,14 +1,17 @@
 import VideoList from './VideoList.js';
-// import Search from './Search.js';
+import Search from './Search.js';
 import VideoPlayer from './VideoPlayer.js';
 import exampleVideoData from '../data/exampleVideoData.js';
+import YOUTUBE_API_KEY from '../config/youtube.js';
 
 class App extends React.Component {
   // constructor
   constructor(props) {
     super(props);
     this.state = {
-      currentVid: exampleVideoData[0] //this.props[0]
+      videoList: exampleVideoData, // searchYoutube(options, callback)
+      currentVid: exampleVideoData[0], //this.props[0]
+      query: ''
     };
   }
 
@@ -20,7 +23,13 @@ class App extends React.Component {
   }
 
   onSearchClick(searchQuery) {
+    this.props.search({key: YOUTUBE_API_KEY, query: searchQuery, max: 5}, (data) => { var videoList = data; });
+    this.setState({
+      query: searchQuery,
+      videoList: []
+    });
 
+    console.log('search', searchQuery);
   }
 
   render() {
@@ -28,7 +37,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div>{/*<Search /> add search query to state*/}</div>
+            <div><Search onSearchClick={this.onSearchClick.bind(this)}/></div>
           </div>
         </nav>
         <div className="row">
@@ -36,7 +45,7 @@ class App extends React.Component {
             <div><VideoPlayer video={this.state.currentVid}/></div>
           </div>
           <div className="col-md-5">
-            <div><VideoList videos={exampleVideoData} onVideoClick={this.onVideoClick.bind(this)}/></div>
+            <div><VideoList videos={this.state.videoList} onVideoClick={this.onVideoClick.bind(this)}/></div>
           </div>
         </div>
       </div>
