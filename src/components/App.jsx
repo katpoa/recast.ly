@@ -16,7 +16,11 @@ class App extends React.Component {
     this.setState({
       currentVid: video
     });
-    console.log('click');
+    console.log('click', video);
+  }
+
+  onSearchClick(searchQuery) {
+
   }
 
   render() {
@@ -24,7 +28,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div>{/*<Search />*/}</div>
+            <div>{/*<Search /> add search query to state*/}</div>
           </div>
         </nav>
         <div className="row">
@@ -32,7 +36,7 @@ class App extends React.Component {
             <div><VideoPlayer video={this.state.currentVid}/></div>
           </div>
           <div className="col-md-5">
-            <div><VideoList videos={exampleVideoData}/></div>
+            <div><VideoList videos={exampleVideoData} onVideoClick={this.onVideoClick.bind(this)}/></div>
           </div>
         </div>
       </div>

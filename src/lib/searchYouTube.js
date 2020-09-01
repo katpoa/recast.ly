@@ -3,7 +3,7 @@ var searchYouTube = (options, callback = ()=>{}) => {
     url: 'https://www.googleapis.com/youtube/v3/search',
     type: 'GET',
     data: options,
-    // contentType: '',
+    // contentType: searchQuery,
     success: callback,
     error: function(error) {
       console.error('searchYouTube: Failed to fetch videos', error);
