@@ -9,33 +9,43 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      videoList: exampleVideoData, // searchYoutube(options, callback)
-      currentVid: exampleVideoData[0], //this.props[0]
+      videoList: exampleVideoData,
+      currentVid: exampleVideoData[0],
       query: ''
     };
+  }
+
+  componentDidMount() {
+    this.props.searchYouTube({key: YOUTUBE_API_KEY, query: 'league of legends', max: 5}, (data) => {
+      this.setState({
+        // query: 'league of legends',
+        videoList: data,
+        currentVid: data[0]
+      });
+    });
   }
 
   onVideoClick(video) {
     this.setState({
       currentVid: video
     });
-    console.log('click', video);
   }
 
   onSearchClick(searchQuery) {
-    this.props.search({key: YOUTUBE_API_KEY, query: searchQuery, max: 5}, (data) => { var videoList = data; });
-    this.setState({
-      query: searchQuery,
-      videoList: []
+    var debounced = _.debounce(this.props.searchYouTube, 1000);
+    debounced({key: YOUTUBE_API_KEY, query: searchQuery, max: 5}, (data) => {
+      this.setState({
+        query: searchQuery,
+        videoList: data,
+        currentVid: data[0]
+      });
     });
-
-    console.log('search', searchQuery);
   }
 
   render() {
     return (
       <div>
-        <nav className="navbar">
+        <nav className="navbar" handleSearchInputChange={this.props.searchYouTube.bind(this)}>
           <div className="col-md-6 offset-md-3">
             <div><Search onSearchClick={this.onSearchClick.bind(this)}/></div>
           </div>
@@ -51,6 +61,7 @@ class App extends React.Component {
       </div>
     );
   }
+
 }
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope

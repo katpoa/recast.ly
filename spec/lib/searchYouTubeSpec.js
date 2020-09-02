@@ -17,7 +17,6 @@ var hasSameShape = function(objectOne, objectTwo) {
   if (Object.keys(objectOne).length !== Object.keys(objectTwo).length) {
     return false;
   }
-
   for (var key in objectOne) {
     if (!key in objectTwo) {
       return false;
