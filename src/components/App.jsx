@@ -45,9 +45,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <nav className="navbar" handleSearchInputChange={this.props.searchYouTube.bind(this)}>
+        <nav className="navbar" >
           <div className="col-md-6 offset-md-3">
-            <div><Search onSearchClick={this.onSearchClick.bind(this)}/></div>
+            <div><Search onSearchClick={this.onSearchClick.bind(this)} /></div>
           </div>
         </nav>
         <div className="row">
@@ -63,6 +63,8 @@ class App extends React.Component {
   }
 
 }
+
+// liveSearch={this.props.searchYouTube.bind(this)}
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
